@@ -1,0 +1,82 @@
+body {
+  background-image: url("rainy.png");
+  font-family: "Poppins", sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  margin: 40px auto;
+}
+h2 {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+hr {
+  color: white;
+  height: 3px;
+  background-color: white;
+  width: auto;
+}
+.search-engine {
+  text-align: center;
+  margin: 0 auto 30px;
+  opacity: 0.7;
+}
+.search-box {
+  width: 300px;
+}
+.main-information {
+  text-align: left;
+  color: white;
+}
+.current-emoji {
+  font-size: 80px;
+  padding-top: 12px;
+  color: white;
+}
+.current-day {
+  margin: 0 auto 40px;
+}
+.current-city {
+  font-size: 25px;
+  margin: 5px auto;
+}
+.current-humidity,
+.current-wind {
+  font-size: 11px;
+}
+.current-temperature {
+  font-size: 45px;
+  color: white;
+}
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+}
+.high-low {
+  color: white;
+}
+.card {
+  opacity: 0.7;
+}
+.fahrenheitCelsius {
+  position: relative;
+  bottom: 35px;
+  left: 10px;
+  color: white;
+}
+.fahrenheit,
+.celsius {
+  color: white;
+  text-decoration: none;
+  transition: ease-in-out;
+  transition-duration: 100ms;
+}
+
+.fahrenheit:hover,
+.celsius:hover {
+  cursor: pointer;
+  color: black;
+  opacity: 0.7;
+}
