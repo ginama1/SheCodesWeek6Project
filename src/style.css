@@ -86,3 +86,10 @@ hr {
   color: white;
   text-decoration: none;
 }
+.credit {
+  text-align: right;
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-top: 25px;
+}
