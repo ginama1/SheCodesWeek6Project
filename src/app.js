@@ -18,21 +18,6 @@ currentDate.innerHTML = date;
 //date in seperate function, get data from response (lesson 6)
 // align Lesson 5 documentation
 //change icons
-// add unit conversion
-
-function showFahrenheit(event) {
-  event.preventDefault();
-  let fahrenheitTemp = "62°F";
-  let currentTempF = document.querySelector("#currentTemp");
-  currentTempF.innerHTML = fahrenheitTemp;
-}
-
-//function showCelsius(event) {
-// event.preventDefault();
-// let celsiusTemp = "32°C";
-//}
-//let celsius = document.querySelector("#celsius");
-//celsius.addEventListener("click", showCelsius);
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -45,14 +30,13 @@ function searchCity(city) {
   let units = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(displayWeather);
-  displayIcon(response);
+  //displayIcon(response);
 }
 
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
-  document.querySelector("#currentTemp").innerHTML = `${Math.round(
-    response.data.main.temp
-  )} °C`;
+  celsius = Math.round(response.data.main.temp);
+  document.querySelector("#currentTemp").innerHTML = celsius;
   document.querySelector("#currentWind").innerHTML = `Wind: ${Math.round(
     response.data.wind.speed
   )} m/s`;
@@ -123,8 +107,29 @@ function handleSubmitCurrentLocation(event) {
   navigator.geolocation.getCurrentPosition(searchByLocation);
 }
 
+function showFahrenheit(event) {
+  event.preventDefault();
+  celsiusConversion.classList.remove("active");
+  fahrenheit.classList.add("active");
+  let fahrenheitTemp = (celsius * 9) / 5 + 32;
+  let currentTempF = document.querySelector("#currentTemp");
+  currentTempF.innerHTML = Math.round(fahrenheitTemp);
+}
+
+function showCelsius(event) {
+  event.preventDefault();
+  celsiusConversion.classList.add("active");
+  fahrenheit.classList.remove("active");
+  let currentTempC = document.querySelector("#currentTemp");
+  currentTempC.innerHTML = celsius;
+}
+
 let cityForm = document.querySelector("#searchCity");
 cityForm.addEventListener("submit", handleSubmit);
+
+let celsius = null;
+let celsiusConversion = document.querySelector("#celsius");
+celsiusConversion.addEventListener("click", showCelsius);
 
 let fahrenheit = document.querySelector("#fahrenheit");
 fahrenheit.addEventListener("click", showFahrenheit);
