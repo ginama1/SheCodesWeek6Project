@@ -15,14 +15,17 @@ let date = `${day}, ${hour}:${minutes}`;
 let currentDate = document.querySelector("#currentDate");
 currentDate.innerHTML = date;
 
+//date in seperate function, get data from response (lesson 6)
+// align Lesson 5 documentation
+//change icons
+// add unit conversion
+
 function showFahrenheit(event) {
   event.preventDefault();
   let fahrenheitTemp = "62°F";
   let currentTempF = document.querySelector("#currentTemp");
   currentTempF.innerHTML = fahrenheitTemp;
 }
-let fahrenheit = document.querySelector("#fahrenheit");
-fahrenheit.addEventListener("click", showFahrenheit);
 
 //function showCelsius(event) {
 // event.preventDefault();
@@ -42,10 +45,8 @@ function searchCity(city) {
   let units = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(displayWeather);
+  displayIcon(response);
 }
-
-let cityForm = document.querySelector("#searchCity");
-cityForm.addEventListener("submit", handleSubmit);
 
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
@@ -63,7 +64,50 @@ function displayWeather(response) {
   )}°C L: ${Math.round(response.data.main.temp_min)}°C`;
 }
 
-searchCity("Leimen");
+function displayIcon(response) {
+  if ((response.data.weather[0].main = "01d")) {
+    document.querySelector("#currentEmoji").innerHTML = "clear_day";
+  }
+  if ((response.data.weather[0].main = "01n")) {
+    document.querySelector("#currentEmoji").innerHTML = "clear_night";
+  }
+  if ((response.data.weather[0].icon = "02d")) {
+    document.querySelector("#currentEmoji").innerHTML = "partly_cloudy_day";
+  }
+  if ((response.data.weather[0].icon = "02n")) {
+    document.querySelector("#currentEmoji").innerHTML = "partly_cloudy_night";
+  }
+  if ((response.data.weather[0].icon = "03d" || "03n" || "04d" || "04n")) {
+    document.querySelector("#currentEmoji").innerHTML = "cloudy";
+  }
+
+  if (
+    (response.data.weather[0].main =
+      "Mist" ||
+      "Smoke" ||
+      "Haze" ||
+      "Dust" ||
+      "Fog" ||
+      "Sand" ||
+      "Dust" ||
+      "Ash" ||
+      "Squall")
+  ) {
+    document.querySelector("#currentEmoji").innerHTML = "foggy";
+  }
+  if ((response.data.weather[0].main = "Tornado")) {
+    document.querySelector("#currentEmoji").innerHTML = "tornado";
+  }
+  if ((response.data.weather[0].icon = "11d")) {
+    document.querySelector("#currentEmoji").innerHTML = "thunderstorm";
+  }
+  if ((response.data.weather[0].icon = "13d")) {
+    document.querySelector("#currentEmoji").innerHTML = "weather_snowy";
+  }
+  if ((response.data.weather[0].main = "Rain" || "Drizzle")) {
+    document.querySelector("#currentEmoji").innerHTML = "rainy";
+  }
+}
 
 function searchByLocation(position) {
   let lat = position.coords.latitude;
@@ -79,5 +123,13 @@ function handleSubmitCurrentLocation(event) {
   navigator.geolocation.getCurrentPosition(searchByLocation);
 }
 
+let cityForm = document.querySelector("#searchCity");
+cityForm.addEventListener("submit", handleSubmit);
+
+let fahrenheit = document.querySelector("#fahrenheit");
+fahrenheit.addEventListener("click", showFahrenheit);
+
 let currentLocationButton = document.querySelector("#currentLocationButton");
 currentLocationButton.addEventListener("click", handleSubmitCurrentLocation);
+
+searchCity("Leimen");
