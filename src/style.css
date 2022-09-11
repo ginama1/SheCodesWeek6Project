@@ -106,3 +106,9 @@ hr {
   cursor: default;
   opacity: 1;
 }
+.last-updated,
+.current-humidity,
+.current-wind {
+  font-size: 11px;
+  color: white;
+}

@@ -1,21 +1,20 @@
-let now = new Date();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = days[now.getDay()];
-let hour = now.getHours();
-let minutes = ("0" + now.getMinutes()).slice(-2);
-let date = `${day}, ${hour}:${minutes}`;
-let currentDate = document.querySelector("#currentDate");
-currentDate.innerHTML = date;
+function formatDate(timestamp) {
+  let now = new Date(timestamp);
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[now.getDay()];
+  let hour = now.getHours();
+  let minutes = now.getMinutes();
+  return `${day}, ${hour}:${minutes}`;
+}
 
-//date in seperate function, get data from response (lesson 6)
 // align Lesson 5 documentation
 //change icons
 //unit conversion high and low
@@ -50,6 +49,9 @@ function displayWeather(response) {
   console.log(response);
   document.querySelector("#description").innerHTML =
     response.data.weather[0].description;
+  document.querySelector("#currentDate").innerHTML = formatDate(
+    response.data.dt * 1000
+  );
 }
 
 function displayIcon(response) {
