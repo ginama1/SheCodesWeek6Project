@@ -36,17 +36,19 @@ function searchCity(city) {
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
   celsius = Math.round(response.data.main.temp);
+  celsiusH = Math.round(response.data.main.temp_max);
+  celsiusL = Math.round(response.data.main.temp_min);
   document.querySelector("#currentTemp").innerHTML = celsius;
+  document.querySelector("#high").innerHTML = celsiusH;
+  document.querySelector("#low").innerHTML = celsiusL;
+
   document.querySelector("#currentWind").innerHTML = `Wind: ${Math.round(
     response.data.wind.speed
   )} m/s`;
   document.querySelector(
     "#currentHumidity"
   ).innerHTML = `Humidity: ${Math.round(response.data.main.humidity)} %`;
-  document.querySelector("#highLow").innerHTML = `H: ${Math.round(
-    response.data.main.temp_max
-  )}°C L: ${Math.round(response.data.main.temp_min)}°C`;
-  console.log(response);
+
   document.querySelector("#description").innerHTML =
     response.data.weather[0].description;
   document.querySelector("#currentDate").innerHTML = formatDate(
@@ -117,9 +119,14 @@ function showFahrenheit(event) {
   event.preventDefault();
   celsiusConversion.classList.remove("active");
   fahrenheit.classList.add("active");
+
   let fahrenheitTemp = (celsius * 9) / 5 + 32;
+  let fahrenheitTempH = (celsiusH * 9) / 5 + 32;
+  let fahrenheitTempL = (celsiusL * 9) / 5 + 32;
   let currentTempF = document.querySelector("#currentTemp");
   currentTempF.innerHTML = Math.round(fahrenheitTemp);
+  document.querySelector("#high").innerHTML = Math.round(fahrenheitTempH);
+  document.querySelector("#low").innerHTML = Math.round(fahrenheitTempL);
 }
 
 function showCelsius(event) {
@@ -128,12 +135,15 @@ function showCelsius(event) {
   fahrenheit.classList.remove("active");
   let currentTempC = document.querySelector("#currentTemp");
   currentTempC.innerHTML = celsius;
+  document.querySelector("#high").innerHTML = Math.round(celsiusH);
+  document.querySelector("#low").innerHTML = Math.round(celsiusL);
 }
 
 let cityForm = document.querySelector("#searchCity");
 cityForm.addEventListener("submit", handleSubmit);
 
 let celsius = null;
+document.querySelector("#currentTemp").innerHTML = celsius;
 let celsiusConversion = document.querySelector("#celsius");
 celsiusConversion.addEventListener("click", showCelsius);
 
