@@ -18,6 +18,7 @@ currentDate.innerHTML = date;
 //date in seperate function, get data from response (lesson 6)
 // align Lesson 5 documentation
 //change icons
+//unit conversion high and low
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -46,6 +47,9 @@ function displayWeather(response) {
   document.querySelector("#highLow").innerHTML = `H: ${Math.round(
     response.data.main.temp_max
   )}°C L: ${Math.round(response.data.main.temp_min)}°C`;
+  console.log(response);
+  document.querySelector("#description").innerHTML =
+    response.data.weather[0].description;
 }
 
 function displayIcon(response) {

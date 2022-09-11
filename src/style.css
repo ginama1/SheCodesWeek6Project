@@ -73,7 +73,11 @@ hr {
   transition: ease-in-out;
   transition-duration: 100ms;
 }
-
+#description {
+  color: white;
+  font-size: 11px;
+  text-transform: capitalize;
+}
 .code-link:hover {
   cursor: pointer;
   color: black;
