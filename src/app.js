@@ -15,9 +15,7 @@ function formatDate(timestamp) {
   return `${day}, ${hour}:${minutes}`;
 }
 
-// align Lesson 5 documentation
 //change icons
-//unit conversion high and low
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -30,7 +28,6 @@ function searchCity(city) {
   let units = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(displayWeather);
-  //displayIcon(response);
 }
 
 function displayWeather(response) {
@@ -41,40 +38,33 @@ function displayWeather(response) {
   document.querySelector("#currentTemp").innerHTML = celsius;
   document.querySelector("#high").innerHTML = celsiusH;
   document.querySelector("#low").innerHTML = celsiusL;
-
   document.querySelector("#currentWind").innerHTML = `Wind: ${Math.round(
     response.data.wind.speed
   )} m/s`;
   document.querySelector(
     "#currentHumidity"
   ).innerHTML = `Humidity: ${Math.round(response.data.main.humidity)} %`;
-
   document.querySelector("#description").innerHTML =
     response.data.weather[0].description;
   document.querySelector("#currentDate").innerHTML = formatDate(
     response.data.dt * 1000
   );
+  displayIcon(response.data.weather[0].icon, response.data.weather[0].main);
 }
 
-function displayIcon(response) {
-  if ((response.data.weather[0].main = "01d")) {
+function displayIcon(icon, main) {
+  if (icon === "01d") {
     document.querySelector("#currentEmoji").innerHTML = "clear_day";
-  }
-  if ((response.data.weather[0].main = "01n")) {
+  } else if (icon === "01n") {
     document.querySelector("#currentEmoji").innerHTML = "clear_night";
-  }
-  if ((response.data.weather[0].icon = "02d")) {
+  } else if (icon === "02d") {
     document.querySelector("#currentEmoji").innerHTML = "partly_cloudy_day";
-  }
-  if ((response.data.weather[0].icon = "02n")) {
+  } else if (icon === "02n") {
     document.querySelector("#currentEmoji").innerHTML = "partly_cloudy_night";
-  }
-  if ((response.data.weather[0].icon = "03d" || "03n" || "04d" || "04n")) {
+  } else if (icon === "03d" || "03n" || "04d" || "04n") {
     document.querySelector("#currentEmoji").innerHTML = "cloudy";
-  }
-
-  if (
-    (response.data.weather[0].main =
+  } else if (
+    (main =
       "Mist" ||
       "Smoke" ||
       "Haze" ||
@@ -86,17 +76,13 @@ function displayIcon(response) {
       "Squall")
   ) {
     document.querySelector("#currentEmoji").innerHTML = "foggy";
-  }
-  if ((response.data.weather[0].main = "Tornado")) {
+  } else if (main === "Tornado") {
     document.querySelector("#currentEmoji").innerHTML = "tornado";
-  }
-  if ((response.data.weather[0].icon = "11d")) {
+  } else if (icon === "11d") {
     document.querySelector("#currentEmoji").innerHTML = "thunderstorm";
-  }
-  if ((response.data.weather[0].icon = "13d")) {
+  } else if (icon === "13d") {
     document.querySelector("#currentEmoji").innerHTML = "weather_snowy";
-  }
-  if ((response.data.weather[0].main = "Rain" || "Drizzle")) {
+  } else if (main === "Rain" || "Drizzle") {
     document.querySelector("#currentEmoji").innerHTML = "rainy";
   }
 }
