@@ -41,8 +41,11 @@
       <div class="container text-center current-day">
         <div class="row">
           <div class="col-3"></div>
-          
-          <div class="col-2 current-emoji material-symbols-outlined" id="currentEmoji">
+
+          <div
+            class="col-2 current-emoji material-symbols-outlined"
+            id="currentEmoji"
+          >
             rainy
           </div>
           <div class="col-2 main-information">
@@ -50,110 +53,41 @@
             <div class="current-time" id="currentDate">Monday, 15.30</div>
             <div class="current-city" id="city">Leimen</div>
             <div id="description">Rainy</div>
-           
-    
           </div>
-          <div class="col-2"> 
-            <span class="current-temperature" id="currentTemp">32°C</span><span class="fahrenheitCelsius" id="fahrenheitCelsius"><a href="#" class="celsius active" id="celsius">°C</a>|<a href="#" class="fahrenheit" id="fahrenheit">°F</a></span>
-            <div class="high-low" id="highLow">H:
-              <span class="high" id="high">33</span>° 
-              L: <span class="low" id="low">25</span>°            
-              </div>
-               <div class="current-humidity" id="currentHumidity">Humidity: 23%</div>
-              <div class="current-wind" id="currentWind">Wind: 2 m/s</div>
+          <div class="col-2">
+            <span class="current-temperature" id="currentTemp">32°C</span
+            ><span class="fahrenheitCelsius" id="fahrenheitCelsius"
+              ><a href="#" class="celsius active" id="celsius">°C</a>|<a
+                href="#"
+                class="fahrenheit"
+                id="fahrenheit"
+                >°F</a
+              ></span
+            >
+            <div class="high-low" id="highLow">
+              H: <span class="high" id="high">33</span>° L:
+              <span class="low" id="low">25</span>°
+            </div>
+            <div class="current-humidity" id="currentHumidity">
+              Humidity: 23%
+            </div>
+            <div class="current-wind" id="currentWind">Wind: 2 m/s</div>
           </div>
           <div class="col-3"></div>
         </div>
       </div>
       <h2>6-Day Forecast</h2>
       <hr />
-      <div class="container text-center">
-        <div class="row">
-          <div class="col-2">
-            <div class="card" style="width: 10rem">
-              <div class="card-body">
-                <h5 class="card-title">Tue</h5>
-                <p class="card-text">
-                  <div class="material-symbols-outlined">
-                    foggy
-                  </div>
-                  32°C
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="card" style="width: 10rem">
-              <div class="card-body">
-                <h5 class="card-title">Wed</h5>
-                <p class="card-text">
-                  <div class="material-symbols-outlined">
-                    partly_cloudy_day
-                  </div>
-                  32°C
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="card" style="width: 10rem">
-              <div class="card-body">
-                <h5 class="card-title">Thu</h5>
-                <p class="card-text">
-                  <div class="material-symbols-outlined">
-                    cloudy
-                  </div>
-                  32°C
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="card" style="width: 10rem">
-              <div class="card-body">
-                <h5 class="card-title">Fri</h5>
-                <p class="card-text">
-                  <div class="material-symbols-outlined">
-                    partly_cloudy_night
-                  </div>
-                  32°C
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="card" style="width: 10rem">
-              <div class="card-body">
-                <h5 class="card-title">Sat</h5>
-                <p class="card-text">
-                  <div class="material-symbols-outlined">
-                    cloudy_snowing
-                  </div>
-                  32°C
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="card" style="width: 10rem">
-              <div class="card-body">
-                <h5 class="card-title">Sun</h5>
-                <p class="card-text">
-                  <div class="material-symbols-outlined">
-                    thunderstorm
-                  </div>
-                  32°C
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div id="forecast"></div>
     </div>
     <p class="credit">
-    <a class="code-link" href="https://github.com/ginama1/SheCodesWeek6Project">Open-source code </a> by Gina Manitta </p>
-    <script src="src/app.js">
-    
-    </script>
+      <a
+        class="code-link"
+        href="https://github.com/ginama1/SheCodesWeek6Project"
+        >Open-source code
+      </a>
+      by Gina Manitta
+    </p>
+    <script src="src/app.js"></script>
   </body>
 </html>

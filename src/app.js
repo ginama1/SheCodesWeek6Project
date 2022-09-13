@@ -50,6 +50,42 @@ function displayWeather(response) {
     response.data.dt * 1000
   );
   displayIcon(response.data.weather[0].icon, response.data.weather[0].main);
+  getForecast(response.data.coord);
+}
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "b35c686ba9565ba0ab254c2230937552";
+  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  console.log(apiUrl);
+  //axios.get(apiUrl).then(displayForecast);
+}
+
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let days = ["Tue", "Wed", "Thu", "Fri"];
+  let forecastHTML = `<div class="container text-center row"> `;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+          <div class="col-2">
+            <div class="card" style="width: 10rem">
+              <div class="card-body">
+                <h5 class="card-title">${day}</h5>
+                <p class="card-text">
+                  <div class="material-symbols-outlined">
+                    foggy
+                  </div>
+                 <strong class="forecast-high">32°</strong>|<span class="forecast-low"> 15°</span>
+                </p>
+              </div>
+            </div>
+          </div>`;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+  console.log(forecastHTML);
 }
 
 function displayIcon(icon, main) {
@@ -140,3 +176,4 @@ let currentLocationButton = document.querySelector("#currentLocationButton");
 currentLocationButton.addEventListener("click", handleSubmitCurrentLocation);
 
 searchCity("Leimen");
+displayForecast();
