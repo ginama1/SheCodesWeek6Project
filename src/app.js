@@ -15,8 +15,6 @@ function formatDate(timestamp) {
   return `${day}, ${hour}:${minutes}`;
 }
 
-//change icons
-
 function handleSubmit(event) {
   event.preventDefault();
   let city = document.querySelector("#searchInput").value;
@@ -56,32 +54,50 @@ function displayWeather(response) {
 function getForecast(coordinates) {
   console.log(coordinates);
   let apiKey = "b35c686ba9565ba0ab254c2230937552";
-  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   console.log(apiUrl);
-  //axios.get(apiUrl).then(displayForecast);
+  axios.get(apiUrl).then(displayForecast);
 }
 
-function displayForecast() {
+function formatForecastDay(timestamp) {
+  let forecastDay = new Date(timestamp * 1000);
+  let day = forecastDay.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
-  let days = ["Tue", "Wed", "Thu", "Fri"];
+  let forecast = response.data.daily;
   let forecastHTML = `<div class="container text-center row"> `;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  console.log(forecast);
+
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
           <div class="col-2">
             <div class="card" style="width: 10rem">
               <div class="card-body">
-                <h5 class="card-title">${day}</h5>
+                <h5 class="card-title">${formatForecastDay(forecastDay.dt)}</h5>
                 <p class="card-text">
-                  <div class="material-symbols-outlined">
-                    foggy
+                  <div class="material-symbols-outlined" class="forecast-icon">
+                    ${displayIcon(
+                      forecastDay.weather[0].icon,
+                      forecastDay.weather[0].main
+                    )}
                   </div>
-                 <strong class="forecast-high">32°</strong>|<span class="forecast-low"> 15°</span>
+                 <strong class="forecast-high">${Math.round(
+                   forecastDay.temp.max
+                 )}°</strong> | <span class="forecast-low">${Math.round(
+          forecastDay.temp.min
+        )}°</span>
                 </p>
               </div>
             </div>
           </div>`;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
@@ -90,15 +106,20 @@ function displayForecast() {
 
 function displayIcon(icon, main) {
   if (icon === "01d") {
-    document.querySelector("#currentEmoji").innerHTML = "clear_day";
+    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
+      "clear_day";
   } else if (icon === "01n") {
-    document.querySelector("#currentEmoji").innerHTML = "clear_night";
+    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
+      "clear_night";
   } else if (icon === "02d") {
-    document.querySelector("#currentEmoji").innerHTML = "partly_cloudy_day";
+    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
+      "partly_cloudy_day";
   } else if (icon === "02n") {
-    document.querySelector("#currentEmoji").innerHTML = "partly_cloudy_night";
+    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
+      "partly_cloudy_night";
   } else if (icon === "03d" || "03n" || "04d" || "04n") {
-    document.querySelector("#currentEmoji").innerHTML = "cloudy";
+    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
+      "cloudy";
   } else if (
     (main =
       "Mist" ||
@@ -111,15 +132,20 @@ function displayIcon(icon, main) {
       "Ash" ||
       "Squall")
   ) {
-    document.querySelector("#currentEmoji").innerHTML = "foggy";
+    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
+      "foggy";
   } else if (main === "Tornado") {
-    document.querySelector("#currentEmoji").innerHTML = "tornado";
+    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
+      "tornado";
   } else if (icon === "11d") {
-    document.querySelector("#currentEmoji").innerHTML = "thunderstorm";
+    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
+      "thunderstorm";
   } else if (icon === "13d") {
-    document.querySelector("#currentEmoji").innerHTML = "weather_snowy";
+    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
+      "weather_snowy";
   } else if (main === "Rain" || "Drizzle") {
-    document.querySelector("#currentEmoji").innerHTML = "rainy";
+    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
+      "rainy";
   }
 }
 
