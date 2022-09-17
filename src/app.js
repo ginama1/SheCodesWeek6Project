@@ -49,6 +49,7 @@ function displayWeather(response) {
   );
   displayIcon(response.data.weather[0].icon, response.data.weather[0].main);
   getForecast(response.data.coord);
+  adoptBackgroundImage(response.data.weather[0].icon);
 }
 
 function getForecast(coordinates) {
@@ -149,6 +150,21 @@ function displayIcon(icon, main) {
   }
 }
 
+function adoptBackgroundImage(icon) {
+  console.log(icon);
+  if (icon === "01d" || "02d" || "03d") {
+    document.body.style.backgroundImage = "url('src/cloudy2.jpg')";
+  } else if (icon === "01n" || "02n" || "03n") {
+    document.body.style.backgroundImage = "url('src/nightClear.jpg')";
+  } else if (icon === "09d" || "10d" || "11d" || "50d") {
+    document.body.style.backgroundImage = "url('src/rainy.png')";
+  } else if (icon === "04d" || "04n") {
+    document.body.style.backgroundImage = "url('src/rainy.png')";
+  } else if (icon === "13d") {
+    document.body.style.backgroundImage = "url('src/snowy.jpg')";
+  }
+}
+
 function searchByLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
@@ -202,4 +218,3 @@ let currentLocationButton = document.querySelector("#currentLocationButton");
 currentLocationButton.addEventListener("click", handleSubmitCurrentLocation);
 
 searchCity("Leimen");
-displayForecast();
