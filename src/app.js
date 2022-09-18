@@ -74,6 +74,8 @@ function displayForecast(response) {
   console.log(forecast);
 
   forecast.forEach(function (forecastDay, index) {
+    console.log(forecastDay);
+
     if (index < 6) {
       forecastHTML =
         forecastHTML +
@@ -84,10 +86,58 @@ function displayForecast(response) {
                 <h5 class="card-title">${formatForecastDay(forecastDay.dt)}</h5>
                 <p class="card-text">
                   <div class="material-symbols-outlined" class="forecast-icon">
-                    ${displayIcon(
-                      forecastDay.weather[0].icon,
-                      forecastDay.weather[0].main
-                    )}
+                    ${function () {
+                      if (forecastDay.weather[0].icon === "01d") {
+                        document.querySelectorAll(".forecast-icon").innerHTML =
+                          "clear_day";
+                      } else if (forecastDay.weather[0].icon === "01n") {
+                        document.querySelectorAll(`.forecast-icon`).innerHTML =
+                          "clear_night";
+                      } else if (forecastDay.weather[0].icon === "02d") {
+                        document.querySelectorAll(`.forecast-icon`).innerHTML =
+                          "partly_cloudy_day";
+                      } else if (forecastDay.weather[0].icon === "02n") {
+                        document.querySelectorAll(`.forecast-icon`).innerHTML =
+                          "partly_cloudy_night";
+                      } else if (
+                        forecastDay.weather[0].icon === "03d" ||
+                        "03n" ||
+                        "04d" ||
+                        "04n"
+                      ) {
+                        document.querySelectorAll(`.forecast-icon`).innerHTML =
+                          "cloudy";
+                      } else if (
+                        (forecastDay.weather[0].main =
+                          "Mist" ||
+                          "Smoke" ||
+                          "Haze" ||
+                          "Dust" ||
+                          "Fog" ||
+                          "Sand" ||
+                          "Dust" ||
+                          "Ash" ||
+                          "Squall")
+                      ) {
+                        document.querySelectorAll(`.forecast-icon`).innerHTML =
+                          "foggy";
+                      } else if (forecastDay.weather[0].main === "Tornado") {
+                        document.querySelectorAll(`.forecast-icon`).innerHTML =
+                          "tornado";
+                      } else if (forecastDay.weather[0].icon === "11d") {
+                        document.querySelectorAll(`.forecast-icon`).innerHTML =
+                          "thunderstorm";
+                      } else if (forecastDay.weather[0].icon === "13d") {
+                        document.querySelectorAll(`.forecast-icon`).innerHTML =
+                          "weather_snowy";
+                      } else if (
+                        forecastDay.weather[0].main === "Rain" ||
+                        "Drizzle"
+                      ) {
+                        document.querySelectorAll(`.forecast-icon`).innerHTML =
+                          "rainy";
+                      }
+                    }}
                   </div>
                  <strong class="forecast-high">${Math.round(
                    forecastDay.temp.max
@@ -107,58 +157,58 @@ function displayForecast(response) {
 
 function displayIcon(icon, main) {
   if (icon === "01d") {
-    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
-      "clear_day";
+    document.querySelector(`#currentEmoji`).innerHTML = "clear_day";
   } else if (icon === "01n") {
-    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
-      "clear_night";
+    document.querySelector(`#currentEmoji`).innerHTML = "clear_night";
   } else if (icon === "02d") {
-    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
-      "partly_cloudy_day";
+    document.querySelector(`#currentEmoji,`).innerHTML = "partly_cloudy_day";
   } else if (icon === "02n") {
-    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
-      "partly_cloudy_night";
-  } else if (icon === "03d" || "03n" || "04d" || "04n") {
-    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
-      "cloudy";
+    document.querySelector(`#currentEmoji`).innerHTML = "partly_cloudy_night";
+  } else if (
+    icon === "03d" ||
+    icon === "03n" ||
+    icon === "04d" ||
+    icon === "04n"
+  ) {
+    document.querySelector(`#currentEmoji`).innerHTML = "cloudy";
   } else if (
     (main =
       "Mist" ||
-      "Smoke" ||
-      "Haze" ||
-      "Dust" ||
-      "Fog" ||
-      "Sand" ||
-      "Dust" ||
-      "Ash" ||
-      "Squall")
+      main === "Smoke" ||
+      main === "Haze" ||
+      main === "Dust" ||
+      main === "Fog" ||
+      main === "Sand" ||
+      main === "Dust" ||
+      main === "Ash" ||
+      main === "Squall")
   ) {
-    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
-      "foggy";
+    document.querySelector(`#currentEmoji`).innerHTML = "foggy";
   } else if (main === "Tornado") {
-    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
-      "tornado";
+    document.querySelector(`#currentEmoji`).innerHTML = "tornado";
   } else if (icon === "11d") {
-    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
-      "thunderstorm";
+    document.querySelector(`#currentEmoji`).innerHTML = "thunderstorm";
   } else if (icon === "13d") {
-    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
-      "weather_snowy";
-  } else if (main === "Rain" || "Drizzle") {
-    document.querySelectorAll(`#currentEmoji, .forecast-icon`).innerHTML =
-      "rainy";
+    document.querySelector(`#currentEmoji`).innerHTML = "weather_snowy";
+  } else if (main === "Rain" || main === "Drizzle") {
+    document.querySelector(`#currentEmoji`).innerHTML = "rainy";
   }
 }
 
 function adoptBackgroundImage(icon) {
   console.log(icon);
-  if (icon === "01d" || "02d" || "03d") {
+  if (icon === "01d" || icon === "02d" || icon === "03d") {
     document.body.style.backgroundImage = "url('src/cloudy2.jpg')";
-  } else if (icon === "01n" || "02n" || "03n") {
+  } else if (icon === "01n" || icon === "02n" || icon === "03n") {
     document.body.style.backgroundImage = "url('src/nightClear.jpg')";
-  } else if (icon === "09d" || "10d" || "11d" || "50d") {
+  } else if (
+    icon === "09d" ||
+    icon === "10d" ||
+    icon === "11d" ||
+    icon === "50d"
+  ) {
     document.body.style.backgroundImage = "url('src/rainy.png')";
-  } else if (icon === "04d" || "04n") {
+  } else if (icon === "04d" || icon === "04n") {
     document.body.style.backgroundImage = "url('src/rainy.png')";
   } else if (icon === "13d") {
     document.body.style.backgroundImage = "url('src/snowy.jpg')";
