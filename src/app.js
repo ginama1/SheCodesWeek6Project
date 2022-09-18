@@ -86,58 +86,10 @@ function displayForecast(response) {
                 <h5 class="card-title">${formatForecastDay(forecastDay.dt)}</h5>
                 <p class="card-text">
                   <div class="material-symbols-outlined" class="forecast-icon">
-                    ${function () {
-                      if (forecastDay.weather[0].icon === "01d") {
-                        document.querySelectorAll(".forecast-icon").innerHTML =
-                          "clear_day";
-                      } else if (forecastDay.weather[0].icon === "01n") {
-                        document.querySelectorAll(`.forecast-icon`).innerHTML =
-                          "clear_night";
-                      } else if (forecastDay.weather[0].icon === "02d") {
-                        document.querySelectorAll(`.forecast-icon`).innerHTML =
-                          "partly_cloudy_day";
-                      } else if (forecastDay.weather[0].icon === "02n") {
-                        document.querySelectorAll(`.forecast-icon`).innerHTML =
-                          "partly_cloudy_night";
-                      } else if (
-                        forecastDay.weather[0].icon === "03d" ||
-                        "03n" ||
-                        "04d" ||
-                        "04n"
-                      ) {
-                        document.querySelectorAll(`.forecast-icon`).innerHTML =
-                          "cloudy";
-                      } else if (
-                        (forecastDay.weather[0].main =
-                          "Mist" ||
-                          "Smoke" ||
-                          "Haze" ||
-                          "Dust" ||
-                          "Fog" ||
-                          "Sand" ||
-                          "Dust" ||
-                          "Ash" ||
-                          "Squall")
-                      ) {
-                        document.querySelectorAll(`.forecast-icon`).innerHTML =
-                          "foggy";
-                      } else if (forecastDay.weather[0].main === "Tornado") {
-                        document.querySelectorAll(`.forecast-icon`).innerHTML =
-                          "tornado";
-                      } else if (forecastDay.weather[0].icon === "11d") {
-                        document.querySelectorAll(`.forecast-icon`).innerHTML =
-                          "thunderstorm";
-                      } else if (forecastDay.weather[0].icon === "13d") {
-                        document.querySelectorAll(`.forecast-icon`).innerHTML =
-                          "weather_snowy";
-                      } else if (
-                        forecastDay.weather[0].main === "Rain" ||
-                        "Drizzle"
-                      ) {
-                        document.querySelectorAll(`.forecast-icon`).innerHTML =
-                          "rainy";
-                      }
-                    }}
+                    ${getIconName(
+                      forecastDay.weather[0].icon,
+                      forecastDay.weather[0].main
+                    )}
                   </div>
                  <strong class="forecast-high">${Math.round(
                    forecastDay.temp.max
@@ -194,7 +146,45 @@ function displayIcon(icon, main) {
     document.querySelector(`#currentEmoji`).innerHTML = "rainy";
   }
 }
-
+function getIconName(icon, main) {
+  if (icon === "01d") {
+    return "clear_day";
+  } else if (icon === "01n") {
+    return "clear_night";
+  } else if (icon === "02d") {
+    return "partly_cloudy_day";
+  } else if (icon === "02n") {
+    return "partly_cloudy_night";
+  } else if (
+    icon === "03d" ||
+    icon === "03n" ||
+    icon === "04d" ||
+    icon === "04n"
+  ) {
+    return "cloudy";
+  } else if (
+    (main =
+      "Mist" ||
+      main === "Smoke" ||
+      main === "Haze" ||
+      main === "Dust" ||
+      main === "Fog" ||
+      main === "Sand" ||
+      main === "Dust" ||
+      main === "Ash" ||
+      main === "Squall")
+  ) {
+    return "foggy";
+  } else if (main === "Tornado") {
+    return "tornado";
+  } else if (icon === "11d") {
+    return "thunderstorm";
+  } else if (icon === "13d") {
+    return "weather_snowy";
+  } else if (main === "Rain" || main === "Drizzle") {
+    return "rainy";
+  }
+}
 function adoptBackgroundImage(icon) {
   console.log(icon);
   if (icon === "01d" || icon === "02d" || icon === "03d") {
